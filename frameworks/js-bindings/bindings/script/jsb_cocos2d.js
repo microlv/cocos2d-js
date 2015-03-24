@@ -26,7 +26,7 @@
 
 // CCConfig.js
 //
-cc.ENGINE_VERSION = "Cocos2d-JS v3.3";
+cc.ENGINE_VERSION = "Cocos2d-JS v3.4 Beta0";
 
 cc.FIX_ARTIFACTS_BY_STRECHING_TEXEL = 0;
 cc.DIRECTOR_STATS_POSITION = {x: 0, y: 0};
@@ -2172,7 +2172,6 @@ var templateSetBlendFunc = function(src, dst) {
     else
         blendf = {src: src, dst: dst};
     this._setBlendFunc(blendf);
-    var b = this.getBlendFunc();
 };
 for (var i = 0, l = protoHasBlend.length; i < l; i++) {
     var proto = protoHasBlend[i];
@@ -2800,3 +2799,24 @@ cc.LabelTTF.prototype.setDimensions = function (dim, height) {
     }
     this._setDimensions(dim);
 };
+
+
+//
+// Label enableStroke
+//
+cc.Label.prototype.enableStroke = cc.Label.prototype.enableOutline;
+
+
+//
+// 3D module rename to jsb namespace
+//
+jsb.BaseLight = cc.BaseLight;
+delete cc.BaseLight;
+jsb.DirectionLight = cc.DirectionLight;
+delete cc.DirectionLight;
+jsb.PointLight = cc.PointLight;
+delete cc.PointLight;
+jsb.SpotLight = cc.SpotLight;
+delete cc.SpotLight;
+jsb.AmbientLight = cc.AmbientLight;
+delete cc.AmbientLight;

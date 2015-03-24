@@ -116,7 +116,7 @@ var SysMenu = cc.Layer.extend({
 
         if (MW.SOUND) {
             cc.audioEngine.setMusicVolume(0.7);
-            cc.audioEngine.playMusic(res.mainMainMusic_mp3, true);
+            cc.audioEngine.playMusic(cc.sys.os == cc.sys.OS_WP8 || cc.sys.os == cc.sys.OS_WINRT ? res.mainMainMusic_wav : res.mainMainMusic_mp3, true);
         }
 
         return true;
@@ -156,7 +156,7 @@ var SysMenu = cc.Layer.extend({
     },
     onButtonEffect:function(){
         if (MW.SOUND) {
-            var s = cc.audioEngine.playEffect(res.buttonEffet_mp3);
+            var s = cc.audioEngine.playEffect(cc.sys.os == cc.sys.OS_WP8 || cc.sys.os == cc.sys.OS_WINRT ? res.buttonEffet_wav : res.buttonEffet_mp3);
         }
     }
 });

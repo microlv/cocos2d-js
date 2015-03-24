@@ -80,12 +80,14 @@
  *
  */
 
-var scene3SearchPaths = cc.sys.localStorage.getItem("Scene3SearchPaths");
-if (scene3SearchPaths)
-    jsb.fileUtils.setSearchPaths(JSON.parse(scene3SearchPaths));
+if(cc.sys){
+    var scene3SearchPaths = cc.sys.localStorage.getItem("Scene3SearchPaths");
+    if (scene3SearchPaths)
+        jsb.fileUtils.setSearchPaths(JSON.parse(scene3SearchPaths));
+}
 
 cc.game.onStart = function(){
-    
+    cc.view.enableRetina(false);
     if (cc.sys.isNative) {
         cc.view.setDesignResolutionSize(800, 450, cc.ResolutionPolicy.FIXED_HEIGHT);
         cc.view.resizeWithBrowserSize(true);
