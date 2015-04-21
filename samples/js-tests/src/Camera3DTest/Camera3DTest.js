@@ -604,9 +604,8 @@ var Camera3DTest = (function(){
                     var nearP = cc.math.vec3(location.x, location.y, -1);
                     var farP = cc.math.vec3(location.x, location.y, 1);
 
-                    var size = cc.winSize;
-                    nearP = this._camera.unproject(size, nearP);
-                    farP = this._camera.unproject(size, farP);
+                    nearP = this._camera.unproject(nearP);
+                    farP = this._camera.unproject(farP);
 
                     var dir = cc.math.vec3(farP.x-nearP.x, farP.y-nearP.y, farP.z-nearP.z);
                     var ndd = dir.y; // (0, 1, 0) * dir
@@ -773,7 +772,7 @@ var CameraCullingDemo = Camera3DTestDemo.extend({
             camera.setCameraFlag(cc.CameraFlag.USER8);
             camera.setPosition3D(cc.math.vec3(-100, 0, 0));
             camera.lookAt(cc.math.vec3(1000, 0, 0));
-            this._moveAction = cc.moveTo(4, cc.p(100, 0));
+            this._moveAction = cc.moveBy(4, cc.p(200, 0));
             this._moveAction.retain();
             var seq = cc.sequence(this._moveAction, cc.callFunc(this.reachEndCallBack, this));
             seq.setTag(100);
@@ -887,27 +886,27 @@ var CameraCullingDemo = Camera3DTestDemo.extend({
 
         // top-left
         var src = cc.math.vec3(0, 0, 0);
-        var tl_0 = this._cameraFirst.unproject(size, src);
+        var tl_0 = this._cameraFirst.unproject(src);
         src = cc.math.vec3(0, 0, 1);
-        var tl_1 = this._cameraFirst.unproject(size, src);
+        var tl_1 = this._cameraFirst.unproject(src);
 
         // top-right
         src = cc.math.vec3(size.width, 0, 0);
-        var tr_0 = this._cameraFirst.unproject(size, src);
+        var tr_0 = this._cameraFirst.unproject(src);
         src = cc.math.vec3(size.width, 0, 1);
-        var tr_1 = this._cameraFirst.unproject(size, src);
+        var tr_1 = this._cameraFirst.unproject(src);
 
         // bottom-left
         src = cc.math.vec3(0, size.height, 0);
-        var bl_0 = this._cameraFirst.unproject(size, src);
+        var bl_0 = this._cameraFirst.unproject(src);
         src = cc.math.vec3(0, size.height, 1);
-        var bl_1 = this._cameraFirst.unproject(size, src);
+        var bl_1 = this._cameraFirst.unproject(src);
 
         // bottom-right
         src = cc.math.vec3(size.width, size.height, 0);
-        var br_0 = this._cameraFirst.unproject(size, src);
+        var br_0 = this._cameraFirst.unproject(src);
         src = cc.math.vec3(size.width, size.height, 1);
-        var br_1 = this._cameraFirst.unproject(size, src);
+        var br_1 = this._cameraFirst.unproject(src);
 
         this._drawFrustum.drawLine(tl_0, tl_1, color);
         this._drawFrustum.drawLine(tr_0, tr_1, color);
@@ -1257,7 +1256,7 @@ var arrayOfCamera3DTest = [
     CameraArcBallDemo
 ];
 
-if(cc.sys.os !== cc.sys.OS_WP8){
+if(cc.sys.os !== cc.sys.OS_WP8 || cc.sys.os !== cc.sys.OS_WINRT){
     arrayOfCamera3DTest.push(FogTestDemo);
 }
 

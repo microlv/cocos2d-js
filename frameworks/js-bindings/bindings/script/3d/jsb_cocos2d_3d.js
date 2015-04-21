@@ -73,8 +73,33 @@ jsb.BillBoard.Mode = {
     VIEW_PLANE_ORIENTED : 1  // orient to the XOY plane of camera
 };
 
-cc.attributeNames = [cc.ATTRIBUTE_NAME_POSITION, 
-    cc.ATTRIBUTE_NAME_COLOR, 
+jsb.Terrain.CrackFixedType = {
+    SKIRT : 0,
+    INCREASE_LOWER : 1
+};
+
+jsb.Terrain.DetailMap = function(file, size = 35){
+    this.file = file;
+    this.size = size;
+};
+jsb.Terrain.detailMap = function(file, size){
+    return new jsb.Terrain.DetailMap(file, size);
+};
+
+jsb.Terrain.TerrainData = function(heightMap, alphaMap, detailMap, chunkSize = cc.size(32, 32), mapHeight = 2, mapScale = 0.1){
+    this.heightMap = heightMap;
+    this.alphaMap = alphaMap;
+    this.detailMap = detailMap;
+    this.chunkSize = chunkSize;
+    this.mapHeight = mapHeight;
+    this.mapScale = mapScale;
+};
+jsb.Terrain.terrainData = function(heightMap, alphaMap, detailMap, chunkSize, mapHeight, mapScale){
+    return new jsb.Terrain.TerrainData(heightMap, alphaMap, detailMap, chunkSize, mapHeight, mapScale);
+};
+
+cc.attributeNames = [cc.ATTRIBUTE_NAME_POSITION,
+    cc.ATTRIBUTE_NAME_COLOR,
     cc.ATTRIBUTE_NAME_TEX_COORD,
     cc.ATTRIBUTE_NAME_TEX_COORD1,
     cc.ATTRIBUTE_NAME_TEX_COORD2,
@@ -206,6 +231,12 @@ cc.math.vec4 = function(x, y, z, w){
 jsb.sprite3DCache = jsb.Sprite3DCache.getInstance();
 
 jsb.Sprite3D.extend = cc.Class.extend;
+
+jsb.Sprite3D.prototype._setBlendFunc = jsb.Sprite3D.prototype.setBlendFunc;
+jsb.Sprite3D.prototype.setBlendFunc = templateSetBlendFunc;
+
+jsb.Mesh.prototype._setBlendFunc = jsb.Mesh.prototype.setBlendFunc;
+jsb.Mesh.prototype.setBlendFunc = templateSetBlendFunc;
 
 jsb.Sprite3D.prototype._ctor = function(modelPath, texturePath){
     if(modelPath === undefined){
